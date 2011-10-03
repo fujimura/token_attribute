@@ -7,11 +7,11 @@ Gem::Specification.new do |s|
   s.version     = TokenAttribute::VERSION
   s.authors     = ["Fujimura Daisuke"]
   s.email       = ["me@fujimuradaisuke.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/fujimura/token_attribute"
+  s.summary     = %q{Small macro to generate unique random token attribute for ActiveRecord}
+  s.description = %q{Small macro to generate unique random token attribute for ActiveRecord}
 
-  s.rubyforge_project = "token_attribute"
+  # s.rubyforge_project = "token_attribute"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -19,6 +19,9 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_dependency "activerecord"
+  s.add_dependency "activesupport"
+  s.add_development_dependency "contest"
+  s.add_development_dependency "rr"
+  s.add_development_dependency "ruby-debug19"
 end
