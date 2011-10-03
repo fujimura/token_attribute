@@ -15,7 +15,7 @@ ActiveRecord::Base.establish_connection('test')
 
 class User < ActiveRecord::Base
   include TokenAttribute
-  tokenize :access_token
+  token_attribute :access_token
 end
 
 class CreateAllTables < ActiveRecord::Migration

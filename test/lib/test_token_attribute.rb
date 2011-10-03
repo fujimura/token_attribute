@@ -10,11 +10,11 @@ class TokenAttributeTest < Test::Unit::TestCase
     User.delete_all
   end
 
-  describe '.tokenize' do
-    test 'can tokenize multiple attributes' do
+  describe '.token_attribute' do
+    test 'can token_attribute-ize multiple attributes' do
       klass = User.dup
       klass.send :include, TokenAttribute
-      klass.send :tokenize, :download_ticket, :password_recovery
+      klass.send :token_attribute, :download_ticket, :password_recovery
       [:download_ticket, :password_recovery].each do |a|
         method_name = ('generate_' + a.to_s).to_sym
         assert klass.new.methods.include? method_name

@@ -13,7 +13,7 @@ module TokenAttribute
     #
     # tested in client_spec.
     #
-    def tokenize(*attribute_names)
+    def token_attribute(*attribute_names)
       attribute_names.each do |attribute|
         generator_method_name = "generate_#{attribute}"
         define_method generator_method_name do
