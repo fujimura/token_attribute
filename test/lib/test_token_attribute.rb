@@ -17,7 +17,7 @@ class TokenAttributeTest < Test::Unit::TestCase
       klass.send :token_attribute, :download_ticket, :password_recovery
       [:download_ticket, :password_recovery].each do |a|
         method_name = ('generate_' + a.to_s).to_sym
-        assert klass.new.methods.include? method_name
+        assert klass.new.methods.map(&:to_sym).include? method_name
       end
     end
   end

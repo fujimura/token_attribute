@@ -19,9 +19,14 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_dependency "activerecord"
-  s.add_dependency "activesupport"
+  s.add_dependency "activerecord", '= 3.0.0'
+  s.add_dependency "activesupport", '= 3.0.0'
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "contest"
   s.add_development_dependency "rr"
-  s.add_development_dependency "ruby-debug19"
+  if RUBY_VERSION.to_f == 1.9
+    s.add_development_dependency "ruby-debug19"
+  else
+    s.add_development_dependency "ruby-debug"
+  end
 end
