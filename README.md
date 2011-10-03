@@ -30,7 +30,9 @@ gem 'token_attribute'
 
 ## Supported Versions
 
-tba
+Ruby 1.8.7, 1.9.2
+
+Rails 3.0.x, 3.1.x
 
 ## Motivation
 
