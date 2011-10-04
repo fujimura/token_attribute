@@ -31,14 +31,14 @@ class TokenAttributeTest < Test::Unit::TestCase
       dup = 'duplicating'
       User.create :access_token => dup
       uniq = 'notduplicating'
-      mock(@user).generate_key.times(1) { dup }
-      mock(@user).generate_key.times(1) { uniq }
+      mock(@user).generate_random_string.times(1) { dup }
+      mock(@user).generate_random_string.times(1) { uniq }
       @user.generate_access_token
     end
   end
 
-  describe 'class with its own key generator' do
-    test 'will use it' do
+  describe 'class with its own random string generator' do
+    test 'will use it instead of TokenAttribute#generate_random_string' do
       coupon = Coupon.new
       coupon.generate_code
       assert coupon.code == 'my code'

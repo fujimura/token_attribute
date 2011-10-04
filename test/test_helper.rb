@@ -21,7 +21,7 @@ end
 class Coupon < ActiveRecord::Base
   include TokenAttribute
   token_attribute :code
-  def generate_key
+  def generate_random_string
     'my code'
   end
 end
