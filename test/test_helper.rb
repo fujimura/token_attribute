@@ -28,4 +28,4 @@ class CreateAllTables < ActiveRecord::Migration
   end
 end
 
-CreateAllTables.up unless ActiveRecord::Base.connection.table_exists? 'users'
+CreateAllTables.up
