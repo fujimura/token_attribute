@@ -5,6 +5,9 @@ Small macro to define unique random token generator for ActiveRecord.
 ## How to Use
 
 ```ruby
+
+## Basic
+
 class User < ActiveRecord::Base
   include TokenAttribute
   token_attribute :access_token
@@ -14,6 +17,21 @@ user = User.new
 user.access_token # => nil
 user.generate_access_token
 user.access_token # => 'some unique random string'
+
+
+## Use own random string generator
+
+class Coupon < ActiveRecord::Base
+  include TokenAttribute
+  token_attribute :code
+  def generate_random_string # Override this method
+    'my code'
+  end
+end
+
+coupon = Coupon.new
+coupon.generate_code
+coupon.code # => 'my code'
 ```
 
 ## Install
