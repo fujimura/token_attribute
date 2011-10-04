@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Small macro to generate unique random token attribute for ActiveRecord}
   s.description = %q{Small macro to generate unique random token attribute for ActiveRecord}
 
-  # s.rubyforge_project = "token_attribute"
+  s.rubyforge_project = "token_attribute"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
