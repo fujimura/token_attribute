@@ -36,5 +36,13 @@ class TokenAttributeTest < Test::Unit::TestCase
       @user.generate_access_token
     end
   end
-  
+
+  describe 'class with its own key generator' do
+    test 'will use it' do
+      coupon = Coupon.new
+      coupon.generate_code
+      assert coupon.code == 'my code'
+    end
+  end
+
 end

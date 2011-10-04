@@ -18,12 +18,23 @@ class User < ActiveRecord::Base
   token_attribute :access_token
 end
 
+class Coupon < ActiveRecord::Base
+  include TokenAttribute
+  token_attribute :code
+  def generate_key
+    'my code'
+  end
+end
+
 class CreateAllTables < ActiveRecord::Migration
   def self.up
     create_table(:users) do |t|
       t.string "access_token"
       t.string "download_ticket"
       t.string "password_recovery"
+    end
+    create_table(:coupons) do |t|
+      t.string "code"
     end
   end
 end
