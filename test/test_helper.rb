@@ -1,3 +1,4 @@
+require 'rubygems'
 require File.expand_path('../../lib/token_attribute', __FILE__)
 require 'test/unit'
 require 'contest'
