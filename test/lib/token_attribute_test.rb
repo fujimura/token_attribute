@@ -16,31 +16,33 @@ class TokenAttributeTest < Test::Unit::TestCase
       klass.send :include, TokenAttribute
       klass.send :token_attribute, :download_ticket, :password_recovery
       [:download_ticket, :password_recovery].each do |a|
-        method_name = ('generate_' + a.to_s).to_sym
+        method_name = ('set_' + a.to_s).to_sym
         assert klass.new.methods.map(&:to_sym).include? method_name
       end
     end
   end
 
-  describe '#generate_access_token' do
-    test 'generate identifier' do
-      @user.generate_access_token
-      assert @user.access_token != nil
-    end
-    test 'generate again if it duplicates' do
-      dup = 'duplicating'
-      User.create :access_token => dup
-      uniq = 'notduplicating'
-      mock(@user).generate_random_string.times(1) { dup }
-      mock(@user).generate_random_string.times(1) { uniq }
-      @user.generate_access_token
+  context 'class with access_token as token_attribute' do
+    describe '#set_access_token' do
+      test 'sets access_token' do
+        @user.set_access_token
+        assert @user.access_token != nil
+      end
+      test 'set again if it duplicates' do
+        dup = 'duplicating'
+        User.create :access_token => dup
+        uniq = 'notduplicating'
+        mock(@user).generate_random_string.times(1) { dup }
+        mock(@user).generate_random_string.times(1) { uniq }
+        @user.set_access_token
+      end
     end
   end
 
   describe 'class with its own random string generator' do
     test 'will use it instead of TokenAttribute#generate_random_string' do
       coupon = Coupon.new
-      coupon.generate_code
+      coupon.set_code
       assert coupon.code == 'my code'
     end
   end

@@ -15,7 +15,7 @@ end
 
 user = User.new
 user.access_token # => nil
-user.generate_access_token
+user.set_access_token
 user.access_token # => 'some unique random string'
 
 
@@ -30,7 +30,7 @@ class Coupon < ActiveRecord::Base
 end
 
 coupon = Coupon.new
-coupon.generate_code
+coupon.set_code
 coupon.code # => 'my code'
 ```
 
