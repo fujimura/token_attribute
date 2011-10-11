@@ -23,6 +23,14 @@ class TokenAttributeTest < Test::Unit::TestCase
   end
 
   context 'class with access_token as token_attribute' do
+
+    describe '#generate_access_token' do
+      test 'returns random string' do
+        stub(SecureRandom).hex(10) { 'abcde' }
+        assert_equal @user.generate_access_token, 'abcde'
+      end
+    end
+
     describe '#set_access_token' do
       test 'sets access_token' do
         @user.set_access_token
@@ -32,11 +40,12 @@ class TokenAttributeTest < Test::Unit::TestCase
         dup = 'duplicating'
         User.create :access_token => dup
         uniq = 'notduplicating'
-        mock(@user).generate_random_string.times(1) { dup }
-        mock(@user).generate_random_string.times(1) { uniq }
+        mock(@user).generate_access_token.times(1) { dup }
+        mock(@user).generate_access_token.times(1) { uniq }
         @user.set_access_token
       end
     end
+
   end
 
   describe 'class with its own random string generator' do

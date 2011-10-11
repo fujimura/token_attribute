@@ -15,7 +15,8 @@ end
 
 user = User.new
 user.access_token # => nil
-user.set_access_token
+user.generate_access_token # =>  'random string'
+user.set_access_token # access_token will be set here
 user.access_token # => 'some unique random string'
 
 
@@ -24,7 +25,7 @@ user.access_token # => 'some unique random string'
 class Coupon < ActiveRecord::Base
   include TokenAttribute
   token_attribute :code
-  def generate_random_string # Override this method
+  def generate_code # Override this method
     'my code'
   end
 end

@@ -12,25 +12,26 @@ module TokenAttribute
     #
     def token_attribute(*attribute_names)
       attribute_names.each do |attribute|
-        generator_method_name = "set_#{attribute}"
+
+        generator_method_name = "generate_#{attribute}"
+
         define_method generator_method_name do
-          key = generate_random_string
+          key = SecureRandom.hex(10)
+        end
+
+        setter_method_name = "set_#{attribute}"
+
+        define_method setter_method_name do
+          key = send generator_method_name
           unless self.class.where(attribute => key).exists?
             self[attribute] = key
           else
-            send generator_method_name
+            send setter_method_name
           end
         end
+
       end
     end
   end
 
-  module InstanceMethods
-
-    # Generate random string
-    #
-    def generate_random_string
-      SecureRandom.hex(10)
-    end
-  end
 end
