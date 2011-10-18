@@ -33,6 +33,17 @@ end
 coupon = Coupon.new
 coupon.set_code
 coupon.code # => 'my code'
+
+
+## Make attributes attr_protected
+
+class Post < ActiveRecord::Base
+  include TokenAttribute
+  token_attribute :secret_key, :protected => true
+end
+
+post = Post.new(:secret_key => 'abcdefg')
+post.secret_key # => nil
 ```
 
 ## Install

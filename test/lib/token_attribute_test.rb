@@ -20,6 +20,12 @@ class TokenAttributeTest < Test::Unit::TestCase
         assert klass.new.methods.map(&:to_sym).include? method_name
       end
     end
+    test 'can make attr_protected with option' do
+      klass = User.dup
+      klass.send :include, TokenAttribute
+      klass.send :token_attribute, :download_ticket, :protected => true
+      assert klass.protected_attributes.include? :download_ticket
+    end
   end
 
   context 'class with access_token as token_attribute' do

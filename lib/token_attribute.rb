@@ -10,7 +10,14 @@ module TokenAttribute
     # Macro-ish method to define token-setter.
     # #set_#{attribute_name} will be defined to set unique token.
     #
-    def token_attribute(*attribute_names)
+    def token_attribute(*args)
+      options = args.extract_options!
+      attribute_names = args
+
+      if options[:protected]
+        attr_protected *attribute_names
+      end
+
       attribute_names.each do |attribute|
 
         generator_method_name = "generate_#{attribute}"
