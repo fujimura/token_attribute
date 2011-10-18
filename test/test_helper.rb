@@ -4,6 +4,7 @@ require 'test/unit'
 require 'contest'
 require 'rr'
 require 'ruby-debug'
+require 'turn'
 Test::Unit::TestCase.send :include, RR::Adapters::TestUnit
 
 ActiveRecord::Base.configurations = {
