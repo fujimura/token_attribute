@@ -25,12 +25,21 @@ module TokenAttribute
         define_method generator_method_name do
           key = SecureRandom.hex(10)
         end
+        scope_items = Array.wrap(options[:scope])
 
         setter_method_name = "set_#{attribute}"
 
         define_method setter_method_name do
+
           key = send generator_method_name
-          unless self.class.where(attribute => key).exists?
+
+          cond = {}
+          scope_items.each do |scope_item|
+            cond[scope_item] = self.send(scope_item)
+          end
+          cond.merge!(attribute => key)
+
+          unless self.class.where(cond).exists?
             self[attribute] = key
           else
             send setter_method_name

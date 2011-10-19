@@ -31,6 +31,7 @@ end
 class CreateAllTables < ActiveRecord::Migration
   def self.up
     create_table(:users) do |t|
+      t.string "name"
       t.string "access_token"
       t.string "download_ticket"
       t.string "password_recovery"

@@ -35,6 +35,14 @@ coupon.set_code
 coupon.code # => 'my code'
 
 
+## Scoping
+
+class Ticket < ActiveRecord::Base
+  include TokenAttribute
+  token_attribute :token, :scope => :title # token will be unique per title
+end
+
+
 ## Make attributes attr_protected
 
 class Post < ActiveRecord::Base

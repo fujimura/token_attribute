@@ -30,6 +30,19 @@ class TokenAttributeTest < Test::Unit::TestCase
       end
       assert klass.protected_attributes.include? :download_ticket
     end
+    test 'can be scoped' do
+      klass = User.dup
+      klass.class_eval do
+        include TokenAttribute
+        token_attribute :download_ticket, :scope => :name
+        before_save :set_download_ticket
+      end
+      one = klass.new :name => 'fujimura'
+      two = klass.new :name => 'tanaka'
+      [one, two].each {|u| stub(u).generate_download_ticket.once { 'a' } }
+      [one, two].each {|u| u.save }
+      assert one.download_ticket == two.download_ticket
+    end
   end
 
   context 'class with access_token as token_attribute' do
