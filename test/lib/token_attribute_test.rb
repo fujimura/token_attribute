@@ -13,8 +13,10 @@ class TokenAttributeTest < Test::Unit::TestCase
   describe '.token_attribute' do
     test 'can token_attribute-ize multiple attributes' do
       klass = User.dup
-      klass.send :include, TokenAttribute
-      klass.send :token_attribute, :download_ticket, :password_recovery
+      klass.class_eval do
+        include TokenAttribute
+        token_attribute :download_ticket, :password_recovery
+      end
       [:download_ticket, :password_recovery].each do |a|
         method_name = ('set_' + a.to_s).to_sym
         assert klass.new.methods.map(&:to_sym).include? method_name
@@ -22,8 +24,10 @@ class TokenAttributeTest < Test::Unit::TestCase
     end
     test 'can make attr_protected with option' do
       klass = User.dup
-      klass.send :include, TokenAttribute
-      klass.send :token_attribute, :download_ticket, :protected => true
+      klass.class_eval do
+        include TokenAttribute
+        token_attribute :download_ticket, :protected => true
+      end
       assert klass.protected_attributes.include? :download_ticket
     end
   end
