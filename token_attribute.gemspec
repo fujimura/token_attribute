@@ -23,8 +23,9 @@ Gem::Specification.new do |s|
   s.add_dependency "activesupport", '>= 3.0.0'
   s.add_development_dependency "rake"
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "minitest"
   s.add_development_dependency "contest"
-  s.add_development_dependency "turn", '= 0.8.2'
+  s.add_development_dependency "turn", '>= 0.8.3'
   s.add_development_dependency "rr"
   if RUBY_VERSION.to_f == 1.9
     s.add_development_dependency "ruby-debug19"
