@@ -27,27 +27,28 @@ module TokenAttribute
       attribute_names.each do |attribute|
 
         generator_method_name = "generate_#{attribute}"
+        setter_method_name    = "set_#{attribute}"
+        attribute_to_scope    = Array.wrap(options[:scope])
 
         define_method generator_method_name do
           key = SecureRandom.hex(length)
         end
-        scope_items = Array.wrap(options[:scope])
-
-        setter_method_name = "set_#{attribute}"
 
         define_method setter_method_name do
 
-          key = send generator_method_name
+          candidate = send generator_method_name
 
-          cond = {}
-          scope_items.each do |scope_item|
-            cond[scope_item] = self.send(scope_item)
+          # Gererate scope condition
+          condition = {}
+          attribute_to_scope.each do |name|
+            condition[name] = self.attributes[name]
           end
-          cond.merge!(attribute => key)
+          condition.merge!(attribute => candidate)
 
-          unless self.class.where(cond).exists?
-            self[attribute] = key
+          unless self.class.where(condition).exists?
+            self[attribute] = candidate
           else
+            # Recur if the token is already used
             send setter_method_name
           end
         end
