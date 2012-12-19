@@ -6,6 +6,7 @@ module TokenAttribute
   extend ActiveSupport::Concern
 
   module ClassMethods
+    DEFAULT_TOKEN_LENGTH = 10
 
     # Macro-ish method to define token-setter.
     # #set_#{attribute_name} will be defined to set unique token.
@@ -18,12 +19,17 @@ module TokenAttribute
         attr_protected *attribute_names
       end
 
+      # `/ 2` because "The length of the result string is twice of n".
+      # see: http://www.ruby-doc.org/stdlib-1.9.3/libdoc/securerandom/rdoc/SecureRandom.html#method-c-hex
+      raise "Can't set odd number to token length" if options[:length] && (options[:length] % 2) == 1
+      length = (options[:length] || DEFAULT_TOKEN_LENGTH) / 2
+
       attribute_names.each do |attribute|
 
         generator_method_name = "generate_#{attribute}"
 
         define_method generator_method_name do
-          key = SecureRandom.hex(10)
+          key = SecureRandom.hex(length)
         end
         scope_items = Array.wrap(options[:scope])
 

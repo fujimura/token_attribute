@@ -22,6 +22,7 @@ class TokenAttributeTest < Test::Unit::TestCase
         assert klass.new.methods.map(&:to_sym).include? method_name
       end
     end
+
     test 'can make attr_protected with option' do
       klass = User.dup
       klass.class_eval do
@@ -30,7 +31,8 @@ class TokenAttributeTest < Test::Unit::TestCase
       end
       assert klass.protected_attributes.include? :download_ticket
     end
-    test 'can be scoped' do
+
+    test 'can scope' do
       klass = User.dup
       klass.class_eval do
         include TokenAttribute
@@ -43,13 +45,39 @@ class TokenAttributeTest < Test::Unit::TestCase
       [one, two].each {|u| u.save }
       assert one.download_ticket == two.download_ticket
     end
+
+    describe 'Token length' do
+      test '10 by default' do
+        klass = User.dup
+        klass.class_eval do
+          include TokenAttribute
+          token_attribute :download_ticket
+          before_save :set_download_ticket
+        end
+        one = klass.new :name => 'fujimura'
+        one.save
+        assert_equal one.download_ticket.length, 10
+      end
+
+      test 'can be configured' do
+        klass = User.dup
+        klass.class_eval do
+          include TokenAttribute
+          token_attribute :download_ticket, :length => 8
+          before_save :set_download_ticket
+        end
+        one = klass.new :name => 'fujimura'
+        one.save
+        assert_equal one.download_ticket.length, 8
+      end
+    end
   end
 
   context 'class with access_token as token_attribute' do
 
     describe '#generate_access_token' do
       test 'returns random string' do
-        stub(SecureRandom).hex(10) { 'abcde' }
+        stub(SecureRandom).hex { 'abcde' }
         assert_equal @user.generate_access_token, 'abcde'
       end
     end
@@ -59,6 +87,7 @@ class TokenAttributeTest < Test::Unit::TestCase
         @user.set_access_token
         assert @user.access_token != nil
       end
+
       test 'set again if it duplicates' do
         dup = 'duplicating'
         User.create :access_token => dup
@@ -78,5 +107,4 @@ class TokenAttributeTest < Test::Unit::TestCase
       assert coupon.code == 'my code'
     end
   end
-
 end
