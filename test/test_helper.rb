@@ -3,7 +3,7 @@ require File.expand_path('../../lib/token_attribute', __FILE__)
 require 'minitest/unit'
 require 'contest'
 require 'rr'
-require 'ruby-debug'
+require 'pry'
 require 'turn'
 Test::Unit::TestCase.send :include, RR::Adapters::TestUnit
 

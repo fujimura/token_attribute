@@ -27,9 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "contest"
   s.add_development_dependency "turn", '>= 0.8.3'
   s.add_development_dependency "rr"
-  if RUBY_VERSION.to_f == 1.9
-    s.add_development_dependency "ruby-debug19"
-  else
-    s.add_development_dependency "ruby-debug"
-  end
+  s.add_development_dependency "pry"
 end
