@@ -43,3 +43,7 @@ class CreateAllTables < ActiveRecord::Migration
 end
 
 CreateAllTables.up
+
+def define_new_class_instance_for(klass, &block)
+  klass.dup.tap { |k| k.class_eval &block }
+end
