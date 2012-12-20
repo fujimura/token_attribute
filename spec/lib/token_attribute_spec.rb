@@ -41,7 +41,7 @@ describe TokenAttribute do
       end
       one = klass.new :name => 'fujimura'
       two = klass.new :name => 'tanaka'
-      [one, two].each {|u| stub(u).generate_download_ticket.once { 'a' } }
+      [one, two].each {|u| u.stub(:generate_download_ticket).and_return 'a' }
       [one, two].each {|u| u.save }
       one.download_ticket.should == two.download_ticket
     end
@@ -77,7 +77,7 @@ describe TokenAttribute do
 
     describe '#generate_access_token' do
       it 'returns random string' do
-        stub(SecureRandom).hex { 'abcde' }
+        SecureRandom.stub(:hex).and_return 'abcde'
         @user.generate_access_token.should == 'abcde'
       end
     end
@@ -92,8 +92,8 @@ describe TokenAttribute do
         dup = 'duplicating'
         User.create :access_token => dup
         uniq = 'notduplicating'
-        mock(@user).generate_access_token.times(1) { dup }
-        mock(@user).generate_access_token.times(1) { uniq }
+        @user.should_receive(:generate_access_token).and_return dup
+        @user.should_receive(:generate_access_token).and_return uniq
         @user.set_access_token
       end
     end

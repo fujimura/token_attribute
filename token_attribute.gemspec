@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "activesupport", '>= 3.0.0'
   s.add_development_dependency "rake"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rr"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "pry"

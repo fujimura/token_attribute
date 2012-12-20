@@ -1,14 +1,10 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require File.expand_path('../../lib/token_attribute', __FILE__)
-
-
-require 'rr'
 require 'pry'
 
 RSpec.configure do |config|
   config.order = "random"
-  config.mock_with :rr
 end
 
 ActiveRecord::Base.configurations = {
