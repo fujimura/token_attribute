@@ -1,4 +1,4 @@
-# token_attribute [<img src="https://secure.travis-ci.org/fujimura/token_attribute.png"/>](http://travis-ci.org/fujimura/token_attribute)
+# token_attribute [<img src="https://secure.travis-ci.org/fujimura/token_attribute.png"/>](http://travis-ci.org/fujimura/token_attribute)[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/fujimura/token_attribute)
 
 Small macro to define unique random token generator for ActiveRecord.
 
