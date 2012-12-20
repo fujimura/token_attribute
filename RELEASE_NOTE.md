@@ -6,3 +6,7 @@ Release notes
 ### `#token_attribute`
 
 Add option `length` to specify token length.
+
+## 0.1.1
+
+Only internal changes.
