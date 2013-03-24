@@ -68,7 +68,7 @@ gem 'token_attribute'
 
 ## Supported Versions
 
-Ruby 1.8.7, 1.9.2, REE
+Ruby 1.8.7, 1.9.2, 1.9.3, 2.0.0, REE
 
 Rails 3.0.x, 3.1.x
 
